@@ -2,7 +2,7 @@
   "name": "smart-swipe-controller",
   "version": "0.1.0",
   "description": "Helps trigger events on swipe",
-  "main": "dist/smartSwipeController.cjs.js",
+  "main": "dist/smartSwipeController.esm.js",
   "module": "dist/smartSwipeController.esm.js",
   "browser": "dist/smartSwipeController.umd.js",
   "iife": "dist/smartSwipeController.iife.js",

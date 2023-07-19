@@ -97,3 +97,4 @@ export class SmartSwipeController {
         );
     }
 }
+module.exports = SmartSwipeController
