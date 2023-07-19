@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>smartprogressbar</title>
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+            }
+            body {
+                width: 100vw;
+                height: 100vh;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                background-color: antiquewhite;
+            }
+            .test-item {
+                width: 50vw;
+                height: 50vh;
+                border-radius: 50%;
+                background-color: goldenrod;
+                border: 2vmax solid saddlebrown;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                text-align: center;
+                font-size: 9vw;
+                user-select: none;
+                color: #42230c;
+                transition: all 0.5s linear;
+            }
+            .test-item:hover {
+                width: 60vw;
+                height: 60vh;
+                font-size: 11vw;
+                border: 3vmax solid saddlebrown;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="test-item">Try Swipe</div>
+
+        <script type="module">
+           // import { SmartSwipeController } from "./smartSwipeController.esm.js";
+           import { SmartSwipeController } from "./../src/index.js";
+
+            const el = document.querySelector(".test-item");
+            let a = new SmartSwipeController(el, 30);
+            console.log(a);
+            setTimeout(()=>{
+                el.innerText = "Removed"
+                a.removeEvents()
+            }, 5000)
+
+
+            el.addEventListener("swipeleft", () => {
+                el.innerText = "swipeleft";
+            });
+
+            el.addEventListener("swiperight", () => {
+                el.innerText = "swiperight";
+            });
+
+            el.addEventListener("swipeup", () => {
+                el.innerText = "swipeup";
+            });
+
+            el.addEventListener("swipedown", () => {
+                el.innerText = "swipedown";
+            });
+
+            el.addEventListener("tap", () => {
+                el.innerText = "tap";
+            });
+        </script>
+    </body>
+</html>
