@@ -1,6 +1,6 @@
 {
   "name": "smart-swipe-controller",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Helps trigger events on swipe",
   "main": "dist/smartSwipeController.esm.js",
   "module": "dist/smartSwipeController.esm.js",
