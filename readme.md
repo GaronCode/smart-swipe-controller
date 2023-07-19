@@ -1,11 +1,11 @@
 # smart-swipe-controller
 Lib simple add additional tap events in `HTML element`
 additional events:
-- **swipeLeft** - swipe right
-- **swipeRight**
-- **swipeUp**
-- **swipeDown**
-- **tap**
+- **swipeLeft** - swipe from right to left
+- **swipeRight** - swipe from left to right
+- **swipeUp** - swipe from bottom to top
+- **swipeDown** - swipe from top to bottom
+- **tap** - one tap
 
 ## Usage
 ### VIA NPM

@@ -44,16 +44,19 @@
         <div class="test-item">Try Swipe</div>
 
         <script type="module">
-           import { SmartSwipeController } from "./smartSwipeController.esm.js";
+            import { SmartSwipeController } from "./smartSwipeController.esm.js";
 
             const el = document.querySelector(".test-item");
             let a = new SmartSwipeController(el, 30);
             console.log(a);
-            setTimeout(()=>{
-                el.innerText = "Removed"
-                a.removeEvents()
-            }, 5000)
-
+            setTimeout(() => {
+                el.innerText = "Removed";
+                a.removeEvents();
+                setTimeout(() => {
+                    el.innerText = "Added";
+                    a.addEvents();
+                }, 5000);
+            }, 5000);
 
             el.addEventListener("swipeleft", () => {
                 el.innerText = "swipeleft";

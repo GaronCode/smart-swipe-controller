@@ -30,7 +30,7 @@ var SSC = (function (exports) {
         this.addEvents();
       }
       /**
-       * Manualy init events 
+       * Manualy init events
        */
       addEvents() {
         this._startEvent = e => {
@@ -80,7 +80,9 @@ var SSC = (function (exports) {
         this.element.dispatchEvent(new Event(this._getEventName(eventId), event));
       }
     }
-    module.exports = SmartSwipeController;
+    if (typeof module !== 'undefined') {
+      module.exports = SmartSwipeController;
+    }
 
     exports.SmartSwipeController = SmartSwipeController;
 

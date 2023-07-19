@@ -27,7 +27,7 @@ class SmartSwipeController {
     this.addEvents();
   }
   /**
-   * Manualy init events 
+   * Manualy init events
    */
   addEvents() {
     this._startEvent = e => {
@@ -77,6 +77,8 @@ class SmartSwipeController {
     this.element.dispatchEvent(new Event(this._getEventName(eventId), event));
   }
 }
-module.exports = SmartSwipeController;
+if (typeof module !== 'undefined') {
+  module.exports = SmartSwipeController;
+}
 
 export { SmartSwipeController };
