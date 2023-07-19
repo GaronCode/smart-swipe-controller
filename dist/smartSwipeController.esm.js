@@ -77,5 +77,6 @@ class SmartSwipeController {
     this.element.dispatchEvent(new Event(this._getEventName(eventId), event));
   }
 }
+module.exports = SmartSwipeController;
 
 export { SmartSwipeController };
