@@ -1,4 +1,4 @@
-var SIG = (function (exports) {
+var SSC = (function (exports) {
     'use strict';
 
     /**

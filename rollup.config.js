@@ -8,7 +8,7 @@ export default [
     {
         input: "src/index.js", // your entry point
         output: {
-            name: "SIG", // package name
+            name: "SSC", // package name
             file: pkg.iife,
             format: "iife",
         },

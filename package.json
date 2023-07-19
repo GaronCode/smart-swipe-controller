@@ -7,7 +7,8 @@
   "browser": "dist/smartSwipeController.umd.js",
   "iife": "dist/smartSwipeController.iife.js",
   "scripts": {
-    "build": "rollup -c"
+    "build": "rollup -c",
+    "push": "git push gh master"
   },
   "keywords": [
     "swipe",

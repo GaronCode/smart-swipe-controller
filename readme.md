@@ -1,65 +1,53 @@
-
+# smart-swipe-controller
+Lib simple add additional tap events in `HTML element`
+additional events:
+- **swipeLeft**
+- **swipeRight**
+- **swipeUp**
+- **swipeDown**
+- **tap**
 
 ## Usage
-1. Include SimpleSwipeController.
-    If you want use as:
-   -  a module
+
+1. Include **SmartSwipeController** and add additional events to `HTML element` like this:
+    If you want include as a module
+    Copy file from [this](https://github.com/GaronCode/smart-swipe-controller/blob/master/dist/smartSwipeController.esm.js) to your project folder
     ```html
     <script type="module">
-    import {SimpleSwipeController} from "./smartImageGallery.esm.js";
-    const Settings = { ... }
-    const Gallery = new SmartImgGallery( Settings );
+    import { SmartSwipeController } from "./smartSwipeController.esm.js";
+    new SmartSwipeController(HTML_Element, 30)
     </script>
     ```
-    - iife-style (you need use global object `SIG`)
+    If you want include as *iife-style* (you need use global object `SSC`)
+    Copy file from [this](https://github.com/GaronCode/smart-swipe-controller/blob/master/dist/smartSwipeController.iife.js) to your project folder
     ```html
-    <script src="smartImageGallery.iife.js"></script>
+    <script src="smartSwipeController.iife.js"></script>
     <script>
-    const Settings = { ... }
-    const Gallery = new SIG.SmartImgGallery( Settings );
+    new SSC.SmartSwipeController(HTML_Element, 30);
     </script>
     ```
-2. Setting up the gallery (object **Settings**)
-   (default settings)
-    ```js
-    const Settings = {
-        //  selector a place for embedding a modal window
-        containerSelector: "body", 
-        // selector to search for displayed images
-        imagesSelector: ".gallery img", 
-        // flag for displaying the download button
-        showDownloadButton: false,
-        // flag for displaying copies of images (a copy is determined by an identical src)
-        displayCopies: false,
-        // transition speed (0 - no transitions)
-        animationDuration: 0.3,
-        // flag for initializing all handlers and events at once when creating
-        init: true,
-    }
-    ```
-    If there was no initialization during creation, you need to use the method `init` (`Gallery.init()`)
-3. Done. When you click on the image, a window should appear.
+2. Now you can subscribe to additional events.
+   ```js
+    HTML_Element.addEventListener("swipeleft", () => {
+        ...
+    });
+
+    HTML_Element.addEventListener("swiperight", () => {
+        ...
+    });
+
+    HTML_Element.addEventListener("swipeup", () => {
+        ...
+    });
+
+    HTML_Element.addEventListener("swipedown", () => {
+        ...
+    });
+
+    HTML_Element.addEventListener("tap", () => {
+        ...
+    });
+   ```
 
 
-## Methods
-| method | action |
-| --- | --- |
-| hide() | hide modal |
-| prev() | show previous img |
-| next() | show next img |
-| init() | initialization of handlers and events for script |
 
-## События
-On `document.body` script triggers the following events:
-- **smartGalleryOpen**:  on open
-- **smartGalleryClose**: on close
-Usage example:
-```js
-document.body.addEventListener("smartGalleryOpen", () =>
-    ...
-);
-
-document.body.addEventListener("smartGalleryClose", () =>
-    ...
-);
-```
