@@ -7,6 +7,8 @@ additional events:
 - **swipeDown** - swipe from top to bottom
 - **tap** - one tap
 
+## [Live Template](https://garoncode.github.io/smart-swipe-controller/)
+
 ## Usage
 ### VIA NPM
 1. `npm install smart-swipe-controller`
