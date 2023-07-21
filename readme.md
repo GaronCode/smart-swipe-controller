@@ -22,7 +22,7 @@ additional events:
 ### Classic import method
 Include **SmartSwipeController** and add additional events to `HTML element` like this
 - If you want include as a module
-    Copy file from [this](https://github.com/GaronCode/smart-swipe-controller/blob/master/dist/smartSwipeController.esm.js) to your project folder
+    Copy file from [this](https://github.com/GaronCode/smart-swipe-controller/blob/master/dist/smartSwipeController.esm.js) (or [minify version](https://github.com/GaronCode/smart-swipe-controller/blob/master/dist/smartSwipeController.esm.mini.js))  to your project folder
     ```html
     <script type="module">
     import { SmartSwipeController } from "./smartSwipeController.esm.js";
@@ -30,7 +30,7 @@ Include **SmartSwipeController** and add additional events to `HTML element` lik
     </script>
     ```
  - If you want include as *iife-style* (you need use global object `SSC`)
-    Copy file from [this](https://github.com/GaronCode/smart-swipe-controller/blob/master/dist/smartSwipeController.iife.js) to your project folder
+    Copy file from [this](https://github.com/GaronCode/smart-swipe-controller/blob/master/dist/smartSwipeController.iife.js) (or [minify version](https://github.com/GaronCode/smart-swipe-controller/blob/master/dist/smartSwipeController.iife.mini.js))  to your project folder
     ```html
     <script src="smartSwipeController.iife.js"></script>
     <script>
