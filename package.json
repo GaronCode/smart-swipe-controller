@@ -1,11 +1,11 @@
 {
   "name": "smart-swipe-controller",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Helps trigger events on swipe",
-  "main": "dist/smartSwipeController.esm.js",
+  "main": "dist/smartSwipeController.esm.mini.js",
   "module": "dist/smartSwipeController.esm.js",
-  "browser": "dist/smartSwipeController.umd.js",
   "iife": "dist/smartSwipeController.iife.js",
+  "iifeMin": "dist/smartSwipeController.iife.min.js",
   "scripts": {
     "build": "rollup -c",
     "push": "git push -f gh master"
@@ -24,12 +24,13 @@
     "url": "https://github.com/GaronCode/smart-swipe-controller"
   },
   "devDependencies": {
-    "@babel/core": "^7.22.8",
-    "@babel/preset-env": "^7.22.7",
+    "@babel/core": "^7.22.9",
+    "@babel/preset-env": "^7.22.9",
+    "@rollup/plugin-babel": "^6.0.3",
+    "@rollup/plugin-terser": "^0.4.3",
     "rollup": "^2.79.1",
     "rollup-plugin-babel": "^4.4.0",
     "rollup-plugin-commonjs": "^10.1.0",
-    "rollup-plugin-node-resolve": "^5.2.0",
-    "rollup-plugin-styles": "^4.0.0"
+    "rollup-plugin-node-resolve": "^5.2.0"
   }
 }

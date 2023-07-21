@@ -1,34 +1,50 @@
 import resolve from "rollup-plugin-node-resolve";
+import terser from '@rollup/plugin-terser';
 import commonjs from "rollup-plugin-commonjs";
 import babel from "rollup-plugin-babel";
-import styles from "rollup-plugin-styles";
 import pkg from "./package.json";
 
 export default [
     {
-        input: "src/index.js", // your entry point
+        input: "src/index.js",
         output: {
-            name: "SSC", // package name
+            name: "SSC", 
             file: pkg.iife,
             format: "iife",
         },
         plugins: [
-            styles(),
             resolve(),
             commonjs(),
-            babel({
-                exclude: ["node_modules/**"],
-            }),
+            babel(),
+        ],
+    },
+    {
+        input: "src/index.js",
+        output: {
+            name: "SSC", 
+            file: pkg.iifeMin,
+            format: "iife",
+        },
+        plugins: [
+            resolve(),
+            commonjs(),
+            babel(),
+            terser(),
         ],
     },
     {
         input: "src/index.js",
         output: [{ file: pkg.module, format: "es" }],
         plugins: [
-            styles(),
-            babel({
-                exclude: ["node_modules/**"],
-            }),
+            //babel(),
+        ],
+    },
+    {
+        input: "src/index.js",
+        output: [{ file: pkg.main, format: "es" }],
+        plugins: [
+            babel(),
+            terser(),
         ],
     },
 ];
