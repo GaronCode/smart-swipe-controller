@@ -46,13 +46,8 @@
         <script type="module">
             import { SmartSwipeController } from "./smartSwipeController.esm.js";
 
-
-
-
-            
             const el = document.querySelector(".test-item");
 
-            
             let a = new SmartSwipeController(el, 30);
             console.log(a);
             setTimeout(() => {
@@ -63,6 +58,13 @@
                     a.addEvents();
                 }, 5000);
             }, 5000);
+
+            el.addEventListener("zoomin", () => {
+                el.innerText = "zoomin";
+            });
+            el.addEventListener("zoomout", () => {
+                el.innerText = "zoomout";
+            });
 
             el.addEventListener("swipeleft", () => {
                 el.innerText = "swipeleft";
