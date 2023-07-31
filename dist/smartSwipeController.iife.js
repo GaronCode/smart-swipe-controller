@@ -77,7 +77,21 @@ var SSC = (function (exports) {
       /**
        * Events Array. Can be changed
        */
-      _defineProperty(this, "eventNames", ["swipeleft", "swiperight", "swipeup", "swipedown", "tap"]);
+      _defineProperty(this, "eventNames", ["swipeleft",
+      // 0
+      "swiperight",
+      // 1
+      "swipeup",
+      // 2
+      "swipedown",
+      // 3
+      "tap",
+      // 4
+      "zoomin",
+      // 5
+      "zoomout" // 6
+      ]);
+
       this.element = element;
       this.offset = offset;
       this.addEvents();
@@ -90,11 +104,32 @@ var SSC = (function (exports) {
       value: function addEvents() {
         var _this = this;
         this._startEvent = function (e) {
-          _this._start.x = e.changedTouches ? e.changedTouches[0].screenX : e.screenX;
-          _this._start.y = e.changedTouches ? e.changedTouches[0].screenY : e.screenY;
+          if (e.changedTouches) {
+            if (e.changedTouches.length > 1) {
+              _this._start = {
+                0: {
+                  x: e.changedTouches[0].screenX,
+                  y: e.changedTouches[0].screenY
+                },
+                1: {
+                  x: e.changedTouches[1].screenX,
+                  y: e.changedTouches[1].screenY
+                }
+              };
+            } else {
+              _this._start.x = e.changedTouches[0].screenX;
+              _this._start.y = e.changedTouches[0].screenY;
+            }
+          } else {
+            _this._start.x = e.screenX;
+            _this._start.y = e.screenY;
+          }
         };
         this._endEvent = function (e) {
-          return _this._handler(e.changedTouches ? e.changedTouches[0].screenX : e.screenX, e.changedTouches ? e.changedTouches[0].screenY : e.screenY, e);
+          var _e$changedTouches;
+          if (((_e$changedTouches = e.changedTouches) === null || _e$changedTouches === void 0 ? void 0 : _e$changedTouches.length) > 1) {
+            _this._multitouchHandler(e);
+          } else _this._handler(e.changedTouches ? e.changedTouches[0].screenX : e.screenX, e.changedTouches ? e.changedTouches[0].screenY : e.screenY, e);
         };
         this._events();
       }
@@ -116,12 +151,18 @@ var SSC = (function (exports) {
         this.element[a + "EventListener"]("mouseup", this._endEvent);
       }
     }, {
+      key: "_normalize",
+      value: function _normalize(val) {
+        var a = Math.abs(val) - this.offset;
+        return a <= 0 ? 0 : a;
+      }
+    }, {
       key: "_handler",
       value: function _handler(x, y, e) {
         var iX = x - this._start.x,
           iY = y - this._start.y;
-        var normX = Math.abs(iX) - this.offset <= 0 ? 0 : Math.abs(iX) - this.offset,
-          normY = Math.abs(iY) - this.offset <= 0 ? 0 : Math.abs(iY) - this.offset;
+        var normX = this._normalize(iX),
+          normY = this._normalize(iY);
         if (normX === 0 && normY === 0) {
           this._triggerEvent(4, e);
         } else if (normX > normY) {
@@ -139,6 +180,18 @@ var SSC = (function (exports) {
         }
       }
     }, {
+      key: "_multitouchHandler",
+      value: function _multitouchHandler(e) {
+        var changedTouches = e.changedTouches,
+          distanceNew = this._getDistance(changedTouches[0], changedTouches[1]),
+          distanceOld = this._getDistance(this._start[0], this._start[1]);
+        if (distanceOld > distanceNew) {
+          this._triggerEvent(5, e);
+        } else {
+          this._triggerEvent(6, e);
+        }
+      }
+    }, {
       key: "_getEventName",
       value: function _getEventName(eventId) {
         return this.eventNames[eventId];
@@ -147,6 +200,11 @@ var SSC = (function (exports) {
       key: "_triggerEvent",
       value: function _triggerEvent(eventId, event) {
         this.element.dispatchEvent(new Event(this._getEventName(eventId), event));
+      }
+    }, {
+      key: "_getDistance",
+      value: function _getDistance(a, b) {
+        return Math.hypot(a.x - b.x, a.y - b.y);
       }
     }]);
     return SmartSwipeController;

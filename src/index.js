@@ -12,7 +12,15 @@ export class SmartSwipeController {
     /**
      * Events Array. Can be changed
      */
-    eventNames = ["swipeleft", "swiperight", "swipeup", "swipedown", "tap"];
+    eventNames = [
+        "swipeleft", // 0
+        "swiperight", // 1
+        "swipeup", // 2
+        "swipedown", // 3
+        "tap", // 4
+        "zoomin", // 5
+        "zoomout", // 6
+    ];
     /**
      * Apply additional tap events in HTML element
      * @param {HTMLElement} element - any HTML element
@@ -28,19 +36,37 @@ export class SmartSwipeController {
      */
     addEvents() {
         this._startEvent = (e) => {
-            this._start.x = e.changedTouches
-                ? e.changedTouches[0].screenX
-                : e.screenX;
-            this._start.y = e.changedTouches
-                ? e.changedTouches[0].screenY
-                : e.screenY;
+            if (e.changedTouches) {
+                if (e.changedTouches.length > 1) {
+                    this._start = {
+                        0: {
+                            x: e.changedTouches[0].screenX,
+                            y: e.changedTouches[0].screenY,
+                        },
+                        1: {
+                            x: e.changedTouches[1].screenX,
+                            y: e.changedTouches[1].screenY,
+                        },
+                    };
+                } else {
+                    this._start.x = e.changedTouches[0].screenX;
+                    this._start.y = e.changedTouches[0].screenY;
+                }
+            } else {
+                this._start.x = e.screenX;
+                this._start.y = e.screenY;
+            }
         };
-        this._endEvent = (e) =>
-            this._handler(
-                e.changedTouches ? e.changedTouches[0].screenX : e.screenX,
-                e.changedTouches ? e.changedTouches[0].screenY : e.screenY,
-                e
-            );
+        this._endEvent = (e) => {
+            if (e.changedTouches?.length > 1) {
+                this._multitouchHandler(e);
+            } else
+                this._handler(
+                    e.changedTouches ? e.changedTouches[0].screenX : e.screenX,
+                    e.changedTouches ? e.changedTouches[0].screenY : e.screenY,
+                    e
+                );
+        };
 
         this._events();
     }
@@ -58,19 +84,17 @@ export class SmartSwipeController {
         this.element[a + "EventListener"]("touchend", this._endEvent);
         this.element[a + "EventListener"]("mouseup", this._endEvent);
     }
+    _normalize(val) {
+        const a = Math.abs(val) - this.offset;
+        return a <= 0 ? 0 : a;
+    }
 
     _handler(x, y, e) {
         const iX = x - this._start.x,
             iY = y - this._start.y;
 
-        const normX =
-                Math.abs(iX) - this.offset <= 0
-                    ? 0
-                    : Math.abs(iX) - this.offset,
-            normY =
-                Math.abs(iY) - this.offset <= 0
-                    ? 0
-                    : Math.abs(iY) - this.offset;
+        const normX = this._normalize(iX),
+            normY = this._normalize(iY);
 
         if (normX === 0 && normY === 0) {
             this._triggerEvent(4, e);
@@ -88,6 +112,21 @@ export class SmartSwipeController {
             }
         }
     }
+
+    _multitouchHandler(e) {
+        const { changedTouches } = e,
+            distanceNew = this._getDistance(
+                changedTouches[0],
+                changedTouches[1]
+            ),
+            distanceOld = this._getDistance(this._start[0], this._start[1]);
+        if (distanceOld > distanceNew) {
+            this._triggerEvent(5, e);
+        } else {
+            this._triggerEvent(6, e);
+        }
+    }
+
     _getEventName(eventId) {
         return this.eventNames[eventId];
     }
@@ -95,5 +134,8 @@ export class SmartSwipeController {
         this.element.dispatchEvent(
             new Event(this._getEventName(eventId), event)
         );
+    }
+    _getDistance(a, b) {
+        return Math.hypot(a.x - b.x, a.y - b.y);
     }
 }
